@@ -412,7 +412,13 @@ open class CameraActivity : AppCompatActivity(R.layout.activity_camera) {
 
         // Setup window insets
         ViewCompat.setOnApplyWindowInsetsListener(mainLayout) { _, windowInsets ->
-            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            val insets = windowInsets.getInsets(
+                WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
+            )
+
+            viewFinder.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                topMargin = insets.top
+            }
 
             cameraModeSelectorLayout.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                 bottomMargin = insets.bottom
@@ -421,6 +427,7 @@ open class CameraActivity : AppCompatActivity(R.layout.activity_camera) {
             }
 
             capturePreviewLayout.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                topMargin = insets.top
                 bottomMargin = insets.bottom
                 leftMargin = insets.left
                 rightMargin = insets.right
