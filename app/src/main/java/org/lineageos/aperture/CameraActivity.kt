@@ -418,6 +418,8 @@ open class CameraActivity : AppCompatActivity(R.layout.activity_camera) {
 
             viewFinder.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                 topMargin = insets.top
+                leftMargin = insets.left
+                rightMargin = insets.right
             }
 
             cameraModeSelectorLayout.updateLayoutParams<ViewGroup.MarginLayoutParams> {
@@ -1124,9 +1126,9 @@ open class CameraActivity : AppCompatActivity(R.layout.activity_camera) {
                 when (tapToFocusInfoState.focusState) {
                     CameraController.TAP_TO_FOCUS_STARTED -> {
                         viewFinderFocus.x =
-                            tapToFocusInfoState.tapPoint!!.x - (viewFinderFocus.width / 2)
+                            viewFinder.x + tapToFocusInfoState.tapPoint!!.x - (viewFinderFocus.width / 2)
                         viewFinderFocus.y =
-                            tapToFocusInfoState.tapPoint!!.y - (viewFinderFocus.height / 2)
+                            viewFinder.y + tapToFocusInfoState.tapPoint!!.y - (viewFinderFocus.height / 2)
                         viewFinderFocus.isVisible = true
                         handler.removeMessages(MSG_HIDE_FOCUS_RING)
                         ValueAnimator.ofInt(0.px, 8.px).apply {
